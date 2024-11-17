@@ -15,6 +15,7 @@ export default function RootLayout({
     { path: "/create", label: "QAリスト適用", disabled: currentPath == '/create' },
     { path: "/preset", label: "QAリスト作成", disabled: currentPath == '/preset' },
     { path: "/delete", label: "QAプリセット削除", disabled: currentPath == '/delete' },
+    { path: "/result", label: "QA解答データ参照", disabled: currentPath == '/result' },
   ];
   return (
     <html lang="en">

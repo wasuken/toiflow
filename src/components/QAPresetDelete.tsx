@@ -1,21 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, ListGroup } from "react-bootstrap";
 
-const QAPresetDelete: React.FC = () => {
-  const [presets, setPresets] = useState<any[]>([]);
-
-  useEffect(() => {
-    const storedPresets = JSON.parse(localStorage.getItem("qaPresets") || "[]");
-    setPresets(storedPresets);
-  }, []);
-
-  const handleDelete = (presetName: string) => {
-    const updatedPresets = presets.filter((preset) => preset.name !== presetName);
-    localStorage.setItem("qaPresets", JSON.stringify(updatedPresets));
-    setPresets(updatedPresets);
-    alert(`プリセット「${presetName}」が削除されました！`);
-  };
-
+const QAPresetDelete: React.FC = ({ presets }) => {
   return (
     <div>
       <h3>削除可能なQAプリセット</h3>
@@ -26,7 +12,7 @@ const QAPresetDelete: React.FC = () => {
               <span>{preset.name}</span>
               <Button
                 variant="danger"
-                onClick={() => handleDelete(preset.name)}
+                onClick={() => preset.delete()}
               >
                 削除
               </Button>

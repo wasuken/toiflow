@@ -1,36 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
-const QAPresetForm: React.FC = () => {
-  const [presetName, setPresetName] = useState("");
-  const [questions, setQuestions] = useState<string[]>([""]);
-
-  const handleAddQuestion = () => {
-    setQuestions([...questions, ""]);
-  };
-
-  const handleRemoveQuestion = (index: number) => {
-    setQuestions(questions.filter((_, i) => i !== index));
-  };
-
-  const handleChangeQuestion = (index: number, value: string) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[index] = value;
-    setQuestions(updatedQuestions);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // LocalStorageに保存
-    const storedPresets = JSON.parse(localStorage.getItem("qaPresets") || "[]");
-    const newPreset = { name: presetName, questions };
-    localStorage.setItem("qaPresets", JSON.stringify([...storedPresets, newPreset]));
-
-    alert("QAリストプリセットが保存されました！");
-    setPresetName("");
-    setQuestions([""]);
-  };
+const QAPresetForm: React.FC = ({ handleAddQuestion, handleRemoveQuestion, handleChangeQuestion, handleSubmit, handleChangePresetName, presetName, questions}) => {
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -40,7 +11,7 @@ const QAPresetForm: React.FC = () => {
           type="text"
           placeholder="プリセット名を入力してください"
           value={presetName}
-          onChange={(e) => setPresetName(e.target.value)}
+          onChange={(e) => handleChangePresetName(e.target.value)}
           required
         />
       </Form.Group>
