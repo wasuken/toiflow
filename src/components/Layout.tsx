@@ -6,13 +6,16 @@ import { Nav, Navbar, Container, Button } from "react-bootstrap";
 interface LayoutProps {
   children: React.ReactNode;
   links: LayoutLink[];
+  mode: boolean;
+  onDarkModeChange: (v: boolean) => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, links }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const Layout: React.FC<LayoutProps> = ({ children, links, mode, onDarkModeChange }) => {
+  const [isDarkMode, setIsDarkMode] = useState(mode);
 
   useEffect(() => {
     document.body.className = isDarkMode ? "bg-dark text-white" : "bg-light text-dark";
+    onDarkModeChange(isDarkMode);
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {

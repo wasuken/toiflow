@@ -9,6 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const currentPath = usePathname();
+  const mode = localStorage.getItem("darkMode");
+  const onDarkModeChange = (v: boolean) => localStorage.setItem("darkMode", v);
 
   const links = [
     { path: "/", label: "Home", disabled: currentPath == '/' },
@@ -20,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout links={links}>
+        <Layout links={links} mode={mode} onDarkModeChange={onDarkModeChange}>
 	  {children}
 	</Layout>
       </body>
