@@ -1,12 +1,12 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import QAPresetDelete from "../../components/QAPresetDelete";
+'use client';
+import React, { useState, useEffect } from 'react';
+import QAPresetDelete from '../../components/QAPresetDelete';
 
 const QAPresetDeletePage: React.FC = () => {
   const [presets, setPresets] = useState<any[]>([]);
 
   useEffect(() => {
-    const storedPresets = JSON.parse(localStorage.getItem("qaPresets") || "[]");
+    const storedPresets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
     setPresets(storedPresets);
   }, []);
 
@@ -14,17 +14,17 @@ const QAPresetDeletePage: React.FC = () => {
     const updatedPresets = [...presets];
     const presetName = updatedPresets[index].name;
     updatedPresets.splice(index, 1);
-    localStorage.setItem("qaPresets", JSON.stringify(updatedPresets));
+    localStorage.setItem('qaPresets', JSON.stringify(updatedPresets));
     setPresets(updatedPresets);
     alert(`プリセット「${presetName}」が削除されました！`);
   };
   return (
-    <div className="container mt-5">
+    <div className='container mt-5'>
       <h1>QAプリセット削除</h1>
       <QAPresetDelete
-	presets={presets.map((x,i) => {
-	  return {...x, delete: () => handleDelete(i)}
-	})}
+        presets={presets.map((x, i) => {
+          return { ...x, delete: () => handleDelete(i) };
+        })}
       />
     </div>
   );

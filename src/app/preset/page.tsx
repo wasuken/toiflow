@@ -1,13 +1,13 @@
-"use client"
-import React, { useState } from "react";
-import QAPresetForm from "@/components/QAPresetForm";
+'use client';
+import React, { useState } from 'react';
+import QAPresetForm from '@/components/QAPresetForm';
 
 const QAPresetCreatePage: React.FC = () => {
-  const [presetName, setPresetName] = useState("");
-  const [questions, setQuestions] = useState<string[]>([""]);
+  const [presetName, setPresetName] = useState('');
+  const [questions, setQuestions] = useState<string[]>(['']);
 
   const handleAddQuestion = () => {
-    setQuestions([...questions, ""]);
+    setQuestions([...questions, '']);
   };
 
   const handleRemoveQuestion = (index: number) => {
@@ -16,7 +16,7 @@ const QAPresetCreatePage: React.FC = () => {
 
   const handleChangePresetName = (pname: string) => {
     setPresetName(pname);
-  }
+  };
 
   const handleChangeQuestion = (index: number, value: string) => {
     const updatedQuestions = [...questions];
@@ -28,25 +28,28 @@ const QAPresetCreatePage: React.FC = () => {
     e.preventDefault();
 
     // LocalStorageに保存
-    const storedPresets = JSON.parse(localStorage.getItem("qaPresets") || "[]");
+    const storedPresets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
     const newPreset = { name: presetName, questions };
-    localStorage.setItem("qaPresets", JSON.stringify([...storedPresets, newPreset]));
+    localStorage.setItem(
+      'qaPresets',
+      JSON.stringify([...storedPresets, newPreset])
+    );
 
-    alert("QAリストプリセットが保存されました！");
-    setPresetName("");
-    setQuestions([""]);
+    alert('QAリストプリセットが保存されました！');
+    setPresetName('');
+    setQuestions(['']);
   };
   return (
-    <div className="container mt-5">
+    <div className='container mt-5'>
       <h1>QAリストプリセット作成</h1>
       <QAPresetForm
-	handleAddQuestion={handleAddQuestion}
-	handleRemoveQuestion={handleRemoveQuestion}
-	handleChangeQuestion={handleChangeQuestion}
-	handleChangePresetName={handleChangePresetName}
-	handleSubmit={handleSubmit}
-	presetName={presetName}
-	questions={questions}
+        handleAddQuestion={handleAddQuestion}
+        handleRemoveQuestion={handleRemoveQuestion}
+        handleChangeQuestion={handleChangeQuestion}
+        handleChangePresetName={handleChangePresetName}
+        handleSubmit={handleSubmit}
+        presetName={presetName}
+        questions={questions}
       />
     </div>
   );

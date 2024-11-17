@@ -1,5 +1,5 @@
-import React from "react";
-import { ListGroup, Form, Button } from "react-bootstrap";
+import React from 'react';
+import { ListGroup, Form, Button } from 'react-bootstrap';
 
 interface QAPresetResultProps {
   presetName: string;
@@ -23,34 +23,34 @@ const QAPresetResult: React.FC<QAPresetResultProps> = ({
   onBack,
 }) => {
   return (
-    <div className="mt-3">
+    <div className='mt-3'>
       <h3>プリセット名: {presetName}</h3>
       <h3>入力されたテキスト</h3>
       {/* textarea を再表示して編集可能に */}
       <Form.Control
-        as="textarea"
+        as='textarea'
         rows={3}
         value={text}
         onChange={(e) => onTextChange(e.target.value)}
-        className="mb-4"
+        className='mb-4'
       />
       <ListGroup>
         {qaList.map((question, index) => (
           <ListGroup.Item key={index}>
             <strong>{question}</strong>
             <Form.Control
-              type="text"
+              type='text'
               value={answers[index]}
               onChange={(e) => onAnswerChange(index, e.target.value)}
             />
           </ListGroup.Item>
         ))}
       </ListGroup>
-      <div className="mt-4">
-        <Button variant="primary" onClick={onSave}>
+      <div className='mt-4'>
+        <Button variant='primary' onClick={onSave}>
           保存
         </Button>
-        <Button variant="secondary" className="ms-3" onClick={onBack}>
+        <Button variant='secondary' className='ms-3' onClick={onBack}>
           戻る
         </Button>
       </div>

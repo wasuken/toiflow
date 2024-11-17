@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, ListGroup } from "react-bootstrap";
+import React from 'react';
+import { Button, ListGroup } from 'react-bootstrap';
 
 const QAPresetDelete: React.FC = ({ presets }) => {
   return (
@@ -7,12 +7,12 @@ const QAPresetDelete: React.FC = ({ presets }) => {
       {presets.length > 0 ? (
         <ListGroup>
           {presets.map((preset, index) => (
-            <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center">
+            <ListGroup.Item
+              key={index}
+              className='d-flex justify-content-between align-items-center'
+            >
               <span>{preset.name}</span>
-              <Button
-                variant="danger"
-                onClick={() => preset.delete()}
-              >
+              <Button variant='danger' onClick={() => preset.delete()}>
                 削除
               </Button>
             </ListGroup.Item>

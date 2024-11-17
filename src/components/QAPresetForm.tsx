@@ -1,15 +1,22 @@
-import React, { useState } from "react";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Form, Button, Col, Row } from 'react-bootstrap';
 
-const QAPresetForm: React.FC = ({ handleAddQuestion, handleRemoveQuestion, handleChangeQuestion, handleSubmit, handleChangePresetName, presetName, questions}) => {
-
+const QAPresetForm: React.FC = ({
+  handleAddQuestion,
+  handleRemoveQuestion,
+  handleChangeQuestion,
+  handleSubmit,
+  handleChangePresetName,
+  presetName,
+  questions,
+}) => {
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="presetName">
+      <Form.Group className='mb-3' controlId='presetName'>
         <Form.Label>プリセット名</Form.Label>
         <Form.Control
-          type="text"
-          placeholder="プリセット名を入力してください"
+          type='text'
+          placeholder='プリセット名を入力してください'
           value={presetName}
           onChange={(e) => handleChangePresetName(e.target.value)}
           required
@@ -18,10 +25,10 @@ const QAPresetForm: React.FC = ({ handleAddQuestion, handleRemoveQuestion, handl
 
       <Form.Label>質問リスト</Form.Label>
       {questions.map((question, index) => (
-        <Row key={index} className="mb-3">
+        <Row key={index} className='mb-3'>
           <Col xs={9}>
             <Form.Control
-              type="text"
+              type='text'
               placeholder={`質問 ${index + 1}`}
               value={question}
               onChange={(e) => handleChangeQuestion(index, e.target.value)}
@@ -30,7 +37,7 @@ const QAPresetForm: React.FC = ({ handleAddQuestion, handleRemoveQuestion, handl
           </Col>
           <Col xs={3}>
             <Button
-              variant="danger"
+              variant='danger'
               onClick={() => handleRemoveQuestion(index)}
               disabled={questions.length === 1}
             >
@@ -40,12 +47,12 @@ const QAPresetForm: React.FC = ({ handleAddQuestion, handleRemoveQuestion, handl
         </Row>
       ))}
 
-      <Button variant="primary" onClick={handleAddQuestion}>
+      <Button variant='primary' onClick={handleAddQuestion}>
         質問を追加
       </Button>
 
-      <div className="mt-4">
-        <Button variant="success" type="submit">
+      <div className='mt-4'>
+        <Button variant='success' type='submit'>
           保存
         </Button>
       </div>

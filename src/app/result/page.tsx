@@ -1,10 +1,10 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import QAPresetResult from "@/components/QAPresetResult";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import QAPresetResult from '@/components/QAPresetResult';
 
 const QAPresetResultPage: React.FC = () => {
-  const [presetName, setPresetName] = useState("");
+  const [presetName, setPresetName] = useState('');
   const [text, setText] = useState('');
   const [qaList, setQaList] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -12,9 +12,11 @@ const QAPresetResultPage: React.FC = () => {
 
   useEffect(() => {
     const loadResults = () => {
-      const storedResults = JSON.parse(localStorage.getItem("qaResults") || "{}");
-      setText(storedResults.text || "");
-      setPresetName(storedResults.selectedPreset || "");
+      const storedResults = JSON.parse(
+        localStorage.getItem('qaResults') || '{}'
+      );
+      setText(storedResults.text || '');
+      setPresetName(storedResults.selectedPreset || '');
       setQaList(storedResults.qaList || []);
       setAnswers(storedResults.answers || []);
     };
@@ -28,31 +30,36 @@ const QAPresetResultPage: React.FC = () => {
   };
   const handleTextChange = (value: string) => {
     setText(value);
-  }
+  };
 
   const handleSave = () => {
-    const updatedResults = { text, selectedPreset: presetName, qaList, answers };
-    localStorage.setItem("qaResults", JSON.stringify(updatedResults));
-    alert("結果が保存されました！");
+    const updatedResults = {
+      text,
+      selectedPreset: presetName,
+      qaList,
+      answers,
+    };
+    localStorage.setItem('qaResults', JSON.stringify(updatedResults));
+    alert('結果が保存されました！');
   };
 
   const handleBack = () => {
-    router.push("/create");
+    router.push('/create');
   };
 
   return (
-    <div className="container mt-5">
+    <div className='container mt-5'>
       <h1>QAリスト適用</h1>
 
       <QAPresetResult
-	presetName={presetName}
-	text={text}
-	qaList={qaList}
-	answers={answers}
-	onAnswerChange={handleAnswerChange}
-	onTextChange={handleTextChange}
-	onSave={handleSave}
-	onBack={handleBack}
+        presetName={presetName}
+        text={text}
+        qaList={qaList}
+        answers={answers}
+        onAnswerChange={handleAnswerChange}
+        onTextChange={handleTextChange}
+        onSave={handleSave}
+        onBack={handleBack}
       />
     </div>
   );

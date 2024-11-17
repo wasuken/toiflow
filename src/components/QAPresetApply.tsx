@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Button, ListGroup } from "react-bootstrap";
+import React from 'react';
+import { Form, Button, ListGroup } from 'react-bootstrap';
 
 interface QAPresetApplyProps {
   text: string;
@@ -26,25 +26,25 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
 }) => {
   return (
     <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3">
+      <Form.Group className='mb-3'>
         <Form.Label>テキスト</Form.Label>
         <Form.Control
-          as="textarea"
+          as='textarea'
           rows={3}
-          placeholder="文章を入力してください"
+          placeholder='文章を入力してください'
           value={text}
           onChange={(e) => onTextChange(e.target.value)}
           required
         />
       </Form.Group>
-      <Form.Group className="mb-3">
+      <Form.Group className='mb-3'>
         <Form.Label>プリセットを選択</Form.Label>
         <Form.Select
           value={selectedPreset}
           onChange={(e) => onPresetChange(e.target.value)}
           required
         >
-          <option value="" disabled>
+          <option value='' disabled>
             プリセットを選択してください
           </option>
           {storedPresets.map((preset: any, index: number) => (
@@ -63,7 +63,7 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
               <ListGroup.Item key={index}>
                 <strong>{question}</strong>
                 <Form.Control
-                  type="text"
+                  type='text'
                   placeholder={`${question}の答えを入力`}
                   value={answers[index]}
                   onChange={(e) => onAnswerChange(index, e.target.value)}
@@ -72,7 +72,7 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
               </ListGroup.Item>
             ))}
           </ListGroup>
-          <Button variant="success" type="submit" className="mt-4">
+          <Button variant='success' type='submit' className='mt-4'>
             完了
           </Button>
         </>
