@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
+import { Nav, Navbar, Container, Button } from "react-bootstrap";
+
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,6 +9,15 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, links }) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.body.className = isDarkMode ? "bg-dark text-white" : "bg-light text-dark";
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -29,6 +37,9 @@ const Layout: React.FC<LayoutProps> = ({ children, links }) => {
                 </Nav.Link>
               ))}
             </Nav>
+	    	            <Button onClick={toggleDarkMode} variant={isDarkMode ? "light" : "dark"}>
+  {isDarkMode ? "ライトモード" : "ダークモード"}
+</Button>
           </Navbar.Collapse>
 	</Container>
       </Navbar>
