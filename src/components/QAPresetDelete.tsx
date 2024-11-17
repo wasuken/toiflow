@@ -4,7 +4,6 @@ import { Button, ListGroup } from "react-bootstrap";
 const QAPresetDelete: React.FC = ({ presets }) => {
   return (
     <div>
-      <h3>削除可能なQAプリセット</h3>
       {presets.length > 0 ? (
         <ListGroup>
           {presets.map((preset, index) => (

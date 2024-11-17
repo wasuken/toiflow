@@ -41,16 +41,20 @@ const QAPresetResultPage: React.FC = () => {
   };
 
   return (
-    <QAPresetResult
-      presetName={presetName}
-      text={text}
-      qaList={qaList}
-      answers={answers}
-      onAnswerChange={handleAnswerChange}
-      onTextChange={handleTextChange}
-      onSave={handleSave}
-      onBack={handleBack}
-    />
+    <div className="container mt-5">
+      <h1>QAリスト適用</h1>
+
+      <QAPresetResult
+	presetName={presetName}
+	text={text}
+	qaList={qaList}
+	answers={answers}
+	onAnswerChange={handleAnswerChange}
+	onTextChange={handleTextChange}
+	onSave={handleSave}
+	onBack={handleBack}
+      />
+    </div>
   );
 };
 

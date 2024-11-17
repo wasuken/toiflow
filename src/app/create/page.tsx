@@ -49,17 +49,21 @@ const QAPresetApply: React.FC = () => {
   };
 
   return (
-    <ApplyLayout
-      text={text}
-      selectedPreset={selectedPreset}
-      qaList={qaList}
-      answers={answers}
-      storedPresets={storedPresets}
-      onTextChange={setText}
-      onPresetChange={handlePresetChange}
-      onAnswerChange={handleAnswerChange}
-      onSubmit={handleSubmit}
-    />
+    <div className="container mt-5">
+      <h1>QAリスト適用</h1>
+
+      <ApplyLayout
+	text={text}
+	selectedPreset={selectedPreset}
+	qaList={qaList}
+	answers={answers}
+	storedPresets={storedPresets}
+	onTextChange={setText}
+	onPresetChange={handlePresetChange}
+	onAnswerChange={handleAnswerChange}
+	onSubmit={handleSubmit}
+      />
+    </div>
   );
 };
 

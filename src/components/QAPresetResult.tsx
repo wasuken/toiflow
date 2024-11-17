@@ -23,8 +23,7 @@ const QAPresetResult: React.FC<QAPresetResultProps> = ({
   onBack,
 }) => {
   return (
-    <div>
-      <h1>QAリスト結果</h1>
+    <div className="mt-3">
       <h3>プリセット名: {presetName}</h3>
       <h3>入力されたテキスト</h3>
       {/* textarea を再表示して編集可能に */}
