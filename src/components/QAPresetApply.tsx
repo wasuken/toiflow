@@ -1,12 +1,14 @@
 import React from 'react';
 import { Form, Button, ListGroup } from 'react-bootstrap';
 
+import { QuestionPreset } from '@/types';
+
 interface QAPresetApplyProps {
   text: string;
   selectedPreset: string;
   qaList: string[];
   answers: string[];
-  storedPresets: any[];
+  storedPresets: QuestionPreset[];
   onTextChange: (text: string) => void;
   onPresetChange: (presetName: string) => void;
   onAnswerChange: (index: number, value: string) => void;
@@ -47,7 +49,7 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
           <option value='' disabled>
             プリセットを選択してください
           </option>
-          {storedPresets.map((preset: any, index: number) => (
+          {storedPresets.map((preset: QuestionPreset, index: number) => (
             <option key={index} value={preset.name}>
               {preset.name}
             </option>

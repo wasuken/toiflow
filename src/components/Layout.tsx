@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({
       ? 'bg-dark text-white'
       : 'bg-light text-dark';
     onDarkModeChange(isDarkMode);
-  }, [isDarkMode]);
+  }, [isDarkMode, onDarkModeChange]);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);

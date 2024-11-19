@@ -1,9 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import QAPresetDelete from '../../components/QAPresetDelete';
+import { QuestionPreset } from '@/types';
 
 const QAPresetDeletePage: React.FC = () => {
-  const [presets, setPresets] = useState<any[]>([]);
+  const [presets, setPresets] = useState<QuestionPreset[]>([]);
 
   useEffect(() => {
     const storedPresets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
