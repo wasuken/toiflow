@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ListGroup, Form, Button } from 'react-bootstrap';
+import CopyButton from './CopyButton';
 
 interface QAPresetResultProps {
   presetName: string;
@@ -22,6 +23,24 @@ const QAPresetResult: React.FC<QAPresetResultProps> = ({
   onSave,
   onBack,
 }) => {
+  const genTextToCopy = useCallback(() => {
+    let qrst = '';
+    for (let i = 0; i < qaList.length; i++) {
+      qrst += `- Q. ${qaList[i]}
+  - A. ${answers[i]}
+`;
+    }
+    const textToCopy = `# テキスト
+
+${text}
+
+# QA
+
+${qrst}
+`;
+    return textToCopy;
+  }, [text, qaList, answers]);
+
   return (
     <div className='mt-3'>
       <h3>プリセット名: {presetName}</h3>
@@ -53,6 +72,7 @@ const QAPresetResult: React.FC<QAPresetResultProps> = ({
         <Button variant='secondary' className='ms-3' onClick={onBack}>
           戻る
         </Button>
+        <CopyButton textToCopy={genTextToCopy()} />
       </div>
     </div>
   );
