@@ -13,3 +13,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id             Int            @id @default(autoincrement())
+  displayName String
+  answers        UserQuestionAnswer[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model QuestionList {
+  id             Int            @id @default(autoincrement())
+  title String
+  questionList Question[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model Question {
+  id             Int            @id @default(autoincrement())
+  questionListId Int
+  questionList QuestionList @relation(fields: [questionListId], references: [id], onDelete: Cascade)
+  name String
+  answers        UserQuestionAnswer[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model UserQuestionAnswer {
+  id             Int            @id @default(autoincrement())
+  questionId  Int
+  question  Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  userId        Int
+  user  User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  answer String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
