@@ -92,7 +92,7 @@ describe('Question List API Integration', () => {
       questions: ['Question 1', 'Question 2']
     };
 
-    const req = new Request('http://localhost:3000/api/questionList', {
+    const req = new Request('http://localhost:3000/api/preset', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
