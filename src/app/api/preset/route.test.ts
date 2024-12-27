@@ -1,4 +1,11 @@
-import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+  jest,
+} from '@jest/globals';
 import { PrismaClient, Prisma } from '@prisma/client';
 import { NextRequest } from 'next/server';
 import { POST } from './route';
@@ -24,11 +31,11 @@ jest.mock('@prisma/client', () => {
           title: 'Test List',
           questionList: [
             { id: 1, name: 'Question 1' },
-            { id: 2, name: 'Question 2' }
-          ]
-        })
-      }
-    }))
+            { id: 2, name: 'Question 2' },
+          ],
+        }),
+      },
+    })),
   };
 });
 
@@ -44,7 +51,7 @@ describe('Question List API', () => {
     // テストデータ
     const testData = {
       title: 'Test List',
-      questions: ['Question 1', 'Question 2']
+      questions: ['Question 1', 'Question 2'],
     };
 
     // リクエストオブジェクトの作成
@@ -53,7 +60,7 @@ describe('Question List API', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(testData)
+      body: JSON.stringify(testData),
     });
 
     // APIハンドラーの実行
@@ -89,7 +96,7 @@ describe('Question List API Integration', () => {
   it('should create a question list in database', async () => {
     const testData = {
       title: 'Test List',
-      questions: ['Question 1', 'Question 2']
+      questions: ['Question 1', 'Question 2'],
     };
 
     const req = new Request('http://localhost:3000/api/preset', {
@@ -97,7 +104,7 @@ describe('Question List API Integration', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(testData)
+      body: JSON.stringify(testData),
     });
 
     const response = await POST(req);
@@ -106,7 +113,7 @@ describe('Question List API Integration', () => {
     // DBに実際に保存されたかを確認
     const savedList = await prisma.questionList.findFirst({
       where: { title: testData.title },
-      include: { questionList: true }
+      include: { questionList: true },
     });
 
     expect(savedList).toBeDefined();
