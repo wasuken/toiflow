@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
       title,
     },
   });
-  console.log('kokomade')
   const qlist = [];
   for(const name of questions){
     const qdata = await prisma.question.create({
