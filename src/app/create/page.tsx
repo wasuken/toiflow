@@ -4,6 +4,11 @@ import { useRouter } from 'next/navigation';
 import ApplyLayout from '@/components/QAPresetApply';
 import { QuestionPreset } from '@/types';
 
+const defaultPreset = {
+  name: '5W1H',
+  questions: ['Who?', 'What?', 'Where?', 'When?', 'Why?', 'How?'],
+};
+
 const QAPresetApply: React.FC = () => {
   const [text, setText] = useState<string>('');
   const [selectedPreset, setSelectedPreset] = useState('');
@@ -13,10 +18,6 @@ const QAPresetApply: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const defaultPreset = {
-      name: '5W1H',
-      questions: ['Who?', 'What?', 'Where?', 'When?', 'Why?', 'How?'],
-    };
     const presets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
     if (!presets.some((preset: QuestionPreset) => preset.name === '5W1H')) {
       const updatedPresets = [defaultPreset, ...presets];

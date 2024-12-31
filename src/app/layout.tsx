@@ -16,22 +16,22 @@ export default function RootLayout({
     { path: '/', label: 'Home', disabled: currentPath == '/' },
     {
       path: '/create',
-      label: 'QAリスト適用',
+      label: '回答する',
       disabled: currentPath == '/create',
     },
     {
       path: '/preset',
-      label: 'QAリスト作成',
+      label: '質問集を作成する',
       disabled: currentPath == '/preset',
     },
     {
       path: '/delete',
-      label: 'QAプリセット削除',
+      label: '質問集を削除する',
       disabled: currentPath == '/delete',
     },
     {
       path: '/result',
-      label: 'QA解答データ参照',
+      label: '解答を参照する',
       disabled: currentPath == '/result',
     },
   ];

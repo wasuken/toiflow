@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { DELETE } from './route';
 
@@ -29,7 +28,7 @@ describe('DELETE API Route', () => {
       questions: ['質問1', '質問2'],
     };
 
-    // @ts-ignore - モックのため
+    // @ts-expect-ignore - モックのため
     prisma.questionList.delete.mockResolvedValue(mockData);
 
     const req = new Request('http://localhost:3000/api/preset/1', {
@@ -37,7 +36,6 @@ describe('DELETE API Route', () => {
     });
 
     const response = await DELETE(req, { params: { id: 1 } });
-    const json = await response.json();
 
     // レスポンスの検証
     expect(response.status).toBe(200);

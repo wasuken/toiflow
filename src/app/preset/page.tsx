@@ -35,13 +35,13 @@ const QAPresetCreatePage: React.FC = () => {
       JSON.stringify([...storedPresets, newPreset])
     );
 
-    alert('QAリストプリセットが保存されました！');
+    alert('QuestionListが保存されました！');
     setPresetName('');
     setQuestions(['']);
   };
   return (
     <div className='container mt-5'>
-      <h1>QAリストプリセット作成</h1>
+      <h1>QuestionList作成</h1>
       <QAPresetForm
         handleAddQuestion={handleAddQuestion}
         handleRemoveQuestion={handleRemoveQuestion}
