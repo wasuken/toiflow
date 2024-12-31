@@ -24,20 +24,27 @@ const QAPresetCreatePage: React.FC = () => {
     setQuestions(updatedQuestions);
   };
 
+  const postQuestionList = async () => {
+    const res = await fetch(`/api/preset`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: 'POST',
+      body: JSON.stringify({ questions, title: presetName }),
+    });
+    if (res.ok) {
+      alert('QuestionListが保存されました！');
+      setPresetName('');
+      setQuestions(['']);
+    }else{
+      alert('[/api/preset] POST Error.');
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // LocalStorageに保存
-    const storedPresets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
-    const newPreset = { name: presetName, questions };
-    localStorage.setItem(
-      'qaPresets',
-      JSON.stringify([...storedPresets, newPreset])
-    );
-
-    alert('QuestionListが保存されました！');
-    setPresetName('');
-    setQuestions(['']);
+    postQuestionList();
   };
   return (
     <div className='container mt-5'>

@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '@/components/Layout';
 import { usePathname } from 'next/navigation';
@@ -9,8 +10,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const currentPath = usePathname();
-  const mode = localStorage.getItem('darkMode');
-  const onDarkModeChange = (v: boolean) => localStorage.setItem('darkMode', v);
+  const [mode, setMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem('darkMode');
+    setMode(savedMode === 'true');
+  }, []);
+
+  const onDarkModeChange = (v: boolean) => {
+    setMode(v);
+    localStorage.setItem('darkMode', String(v));
+  };
 
   const links = [
     { path: '/', label: 'Home', disabled: currentPath == '/' },
