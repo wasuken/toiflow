@@ -1,20 +1,6 @@
-import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  afterEach,
-} from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { PrismaClient } from '@prisma/client';
-import { POST } from './route';
-
-/*
- * やりたいこと
- * createManyモックを
- * 　配列
- * 　UserQuestionAnswer
- *
- * */
+import { GET, POST } from './route';
 
 // インテグレーションテストバージョン（実際のDBを使用する場合）
 describe('Result API Integration', () => {
@@ -55,7 +41,49 @@ describe('Result API Integration', () => {
     await prisma.$disconnect();
   });
 
-  it('should create a result in database', async () => {
+  it('UserQuestionAnswersを取得する', async () => {
+    // userQuestionAnswersテストデータの作成
+    const testData = [
+      {
+        id: 1,
+        answer: 'Test Answer',
+        questionId: 1,
+        userId: 1,
+      },
+      {
+        id: 2,
+        answer: 'Test Answer2',
+        questionId: 1,
+        userId: 1,
+      },
+    ];
+    const rec = testData.map((qa) => {
+      return {
+        questionId: qa.questionId,
+        // 認証方法によって変更
+        userId: qa.userId,
+        answer: qa.answer,
+      };
+    });
+    const userQuestionAnswers = [];
+    for (const row of testData) {
+      const result = await prisma.userQuestionAnswer.create({
+        data: row,
+      });
+      userQuestionAnswers.push(result);
+    }
+
+    const req = new Request('http://localhost:3000/api/results');
+
+    await GET(req);
+
+    // DBに実際に保存されたかを確認
+    const answer = await prisma.userQuestionAnswer.findFirst({});
+
+    expect(answer).toBeDefined();
+  });
+
+  it('UserQuestionAnswersを作成する', async () => {
     const testData = [
       {
         id: 1,

@@ -27,7 +27,7 @@ const QAPresetCreatePage: React.FC = () => {
   const postQuestionList = async () => {
     const res = await fetch(`/api/preset`, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({ questions, title: presetName }),
@@ -36,7 +36,7 @@ const QAPresetCreatePage: React.FC = () => {
       alert('QuestionListが保存されました！');
       setPresetName('');
       setQuestions(['']);
-    }else{
+    } else {
       alert('[/api/preset] POST Error.');
     }
   };

@@ -16,7 +16,7 @@ interface DeleteInfo {
 export async function DELETE(req: Request, { params }: DeleteInfo) {
   const { id } = params;
   const data = await prisma.questionList.delete({
-    data: {
+    where: {
       id,
     },
   });
@@ -27,7 +27,7 @@ export async function DELETE(req: Request, { params }: DeleteInfo) {
 export async function GET(req: Request, { params }: DeleteInfo) {
   const { id } = params;
   const data = await prisma.questionList.findFirst({
-    data: {
+    where: {
       id,
     },
   });
