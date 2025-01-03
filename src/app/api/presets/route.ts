@@ -10,7 +10,11 @@ interface RequstBody {
 }
 
 export async function GET() {
-  const data = await prisma.questionList.findMany({});
+  const data = await prisma.questionList.findMany({
+    include: {
+      questionList: true,
+    },
+  });
   return NextResponse.json({
     data,
   });

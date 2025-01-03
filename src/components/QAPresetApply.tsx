@@ -6,7 +6,7 @@ import { QuestionPreset } from '@/types';
 interface QAPresetApplyProps {
   text: string;
   selectedPreset: string;
-  qaList: string[];
+  qaList: QuestionPreset[];
   answers: string[];
   storedPresets: QuestionPreset[];
   onTextChange: (text: string) => void;
@@ -50,8 +50,8 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
             プリセットを選択してください
           </option>
           {storedPresets.map((preset: QuestionPreset, index: number) => (
-            <option key={index} value={preset.name}>
-              {preset.name}
+            <option key={index} value={preset.title}>
+              {preset.title}
             </option>
           ))}
         </Form.Select>
@@ -63,10 +63,10 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
           <ListGroup>
             {qaList.map((question, index) => (
               <ListGroup.Item key={index}>
-                <strong>{question}</strong>
+                <strong>{question.name}</strong>
                 <Form.Control
                   type='text'
-                  placeholder={`${question}の答えを入力`}
+                  placeholder={`${question.name}の答えを入力`}
                   value={answers[index]}
                   onChange={(e) => onAnswerChange(index, e.target.value)}
                   required

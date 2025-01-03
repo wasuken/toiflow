@@ -1,5 +1,6 @@
 export interface QuestionPreset {
-  name: string;
+  title: string;
+  questionList: Question[];
 }
 
 export interface QuestionList {

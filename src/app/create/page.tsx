@@ -4,12 +4,8 @@ import { useRouter } from 'next/navigation';
 import ApplyLayout from '@/components/QAPresetApply';
 import { QuestionPreset } from '@/types';
 
-const defaultPreset = {
-  name: '5W1H',
-  questions: ['Who?', 'What?', 'Where?', 'When?', 'Why?', 'How?'],
-};
-
 const QAPresetApply: React.FC = () => {
+  // TODO 剥がして下のコンポーネントに移動する？
   const [text, setText] = useState<string>('');
   const [selectedPreset, setSelectedPreset] = useState('');
   const [qaList, setQaList] = useState<string[]>([]);
@@ -17,25 +13,28 @@ const QAPresetApply: React.FC = () => {
   const [storedPresets, setStoredPresets] = useState<QuestionPreset[]>([]);
   const router = useRouter();
 
-  useEffect(() => {
-    const presets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
-    if (!presets.some((preset: QuestionPreset) => preset.name === '5W1H')) {
-      const updatedPresets = [defaultPreset, ...presets];
-      localStorage.setItem('qaPresets', JSON.stringify(updatedPresets));
-      setStoredPresets(updatedPresets);
+  const fetchQuestionList = async () => {
+    const res = await fetch(`/api/presets`);
+    if (res.ok) {
+      const resj = await res.json();
+      setStoredPresets(resj.data);
     } else {
-      setStoredPresets(presets);
+      alert('Error: fetch question list');
     }
+  };
+
+  useEffect(() => {
+    fetchQuestionList();
   }, []);
 
   const handlePresetChange = (presetName: string) => {
     const selected = storedPresets.find(
-      (preset: QuestionPreset) => preset.name === presetName
+      (preset: QuestionPreset) => preset.title === presetName
     );
     if (selected) {
-      setSelectedPreset(selected.name);
-      setQaList(selected.questions);
-      setAnswers(new Array(selected.questions.length).fill(''));
+      setSelectedPreset(selected.title);
+      setQaList(selected.questionList);
+      setAnswers(new Array(selected.questionList.length));
     }
   };
 
@@ -61,11 +60,11 @@ const QAPresetApply: React.FC = () => {
 
       <ApplyLayout
         text={text}
+        onTextChange={setText}
         selectedPreset={selectedPreset}
         qaList={qaList}
         answers={answers}
         storedPresets={storedPresets}
-        onTextChange={setText}
         onPresetChange={handlePresetChange}
         onAnswerChange={handleAnswerChange}
         onSubmit={handleSubmit}

@@ -25,7 +25,7 @@ const QAPresetCreatePage: React.FC = () => {
   };
 
   const postQuestionList = async () => {
-    const res = await fetch(`/api/preset`, {
+    const res = await fetch(`/api/presets`, {
       headers: {
         'Content-Type': 'application/json',
       },
