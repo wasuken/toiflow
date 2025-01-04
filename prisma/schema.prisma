@@ -14,38 +14,51 @@ datasource db {
 }
 
 model User {
-  id             Int            @id @default(autoincrement())
-  displayName String
+  id             Int                  @id @default(autoincrement())
+  displayName    String
   answers        UserQuestionAnswer[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  UserAnswerList UserAnswerList[]
 }
 
 model QuestionList {
-  id             Int            @id @default(autoincrement())
-  title String
+  id           Int        @id @default(autoincrement())
+  title        String
   questionList Question[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Question {
-  id             Int            @id @default(autoincrement())
+  id             Int                  @id @default(autoincrement())
   questionListId Int
-  questionList QuestionList @relation(fields: [questionListId], references: [id], onDelete: Cascade)
-  name String
+  questionList   QuestionList         @relation(fields: [questionListId], references: [id], onDelete: Cascade)
+  name           String
   answers        UserQuestionAnswer[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+}
+
+model UserAnswerList {
+  id         Int                  @id @default(autoincrement())
+  memo       String
+  answerList UserQuestionAnswer[]
+  userId     Int
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
 }
 
 model UserQuestionAnswer {
-  id             Int            @id @default(autoincrement())
-  questionId  Int
-  question  Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  userId        Int
-  user  User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  answer String
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id           Int            @id @default(autoincrement())
+  answerListId Int
+  answerList   UserAnswerList @relation(fields: [answerListId], references: [id], onDelete: Cascade)
+  questionId   Int
+  question     Question       @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answer       String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  User         User?          @relation(fields: [userId], references: [id])
+  userId       Int?
 }
