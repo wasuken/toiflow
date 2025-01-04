@@ -6,21 +6,24 @@ import QAPresetResult from '@/components/QAPresetResult';
 const QAPresetResultPage: React.FC = () => {
   const [presetName, setPresetName] = useState('');
   const [text, setText] = useState('');
-  const [qaList, setQaList] = useState<string[]>([]);
+  const [qaList, setQaList] = useState<UserQuestionAnswer[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
   const router = useRouter();
+  const fetchResultList = async () => {
+    const res = await fetch(`/api/results`);
+    if (res.ok) {
+      const resj = await res.json();
+      setQaList(resj.data);
+    } else {
+      alert('Error: fetch result list');
+    }
+  };
+  useEffect(() => {
+    fetchResultList();
+  }, [])
 
   useEffect(() => {
-    const loadResults = () => {
-      const storedResults = JSON.parse(
-        localStorage.getItem('qaResults') || '{}'
-      );
-      setText(storedResults.text || '');
-      setPresetName(storedResults.selectedPreset || '');
-      setQaList(storedResults.qaList || []);
-      setAnswers(storedResults.answers || []);
-    };
-    loadResults();
+    fetchResultList();
   }, []);
 
   const handleAnswerChange = (index: number, value: string) => {

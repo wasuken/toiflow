@@ -22,7 +22,9 @@ export interface SimpleUser {
 
 export interface UserQuestionAnswer {
   id: number;
-  user: SimpleUser;
-  question: Question;
+  user?: SimpleUser;
+  userId: number;
+  question?: Question;
+  questionId?: number;
   answer: string;
 }

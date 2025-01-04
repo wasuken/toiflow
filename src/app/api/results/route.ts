@@ -13,12 +13,13 @@ export async function GET() {
 // 質問リストと対応する回答の配列がRequestBodyに乗せられる
 export async function POST(req: NextRequest) {
   const params = await req.json();
+  console.log('debug', params)
   const data = params.qaList.map((qa) => {
     return {
       id: qa.id,
       questionId: qa.questionId,
       // 認証方法によって変更
-      userId: params.userId,
+      userId: params.userId ?? 1,
       answer: qa.answer,
     };
   });

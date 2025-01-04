@@ -6,10 +6,18 @@ import { QuestionPreset } from '@/types';
 const QAPresetDeletePage: React.FC = () => {
   const [presets, setPresets] = useState<QuestionPreset[]>([]);
 
+  const fetchQuestionList = async () => {
+    const res = await fetch(`/api/presets`);
+    if (res.ok) {
+      const resj = await res.json();
+      setPresets(resj.data);
+    } else {
+      alert('Error: fetch question list');
+    }
+  };
   useEffect(() => {
-    const storedPresets = JSON.parse(localStorage.getItem('qaPresets') || '[]');
-    setPresets(storedPresets);
-  }, []);
+    fetchQuestionList();
+  }, [])
 
   const handleDelete = (index: number) => {
     const updatedPresets = [...presets];

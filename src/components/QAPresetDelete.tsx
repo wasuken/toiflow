@@ -11,7 +11,7 @@ const QAPresetDelete: React.FC = ({ presets }) => {
               key={index}
               className='d-flex justify-content-between align-items-center'
             >
-              <span>{preset.name}</span>
+              <span>{preset.title}</span>
               <Button variant='danger' onClick={() => preset.delete()}>
                 削除
               </Button>

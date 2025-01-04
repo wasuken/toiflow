@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Button, ListGroup } from 'react-bootstrap';
 
-import { QuestionPreset } from '@/types';
+import { Question, QuestionPreset } from '@/types';
 
 interface QAPresetApplyProps {
   text: string;
   selectedPreset: string;
-  qaList: QuestionPreset[];
+  questionList: Question[];
   answers: string[];
   storedPresets: QuestionPreset[];
   onTextChange: (text: string) => void;
@@ -18,7 +18,7 @@ interface QAPresetApplyProps {
 const QAPresetApply: React.FC<QAPresetApplyProps> = ({
   text,
   selectedPreset,
-  qaList,
+  questionList,
   answers,
   storedPresets,
   onTextChange,
@@ -57,17 +57,17 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
         </Form.Select>
       </Form.Group>
 
-      {qaList.length > 0 && (
+      {questionList.length > 0 && (
         <>
           <h3>質問に答えてください</h3>
           <ListGroup>
-            {qaList.map((question, index) => (
+            {questionList.map((question, index) => (
               <ListGroup.Item key={index}>
                 <strong>{question.name}</strong>
                 <Form.Control
                   type='text'
                   placeholder={`${question.name}の答えを入力`}
-                  value={answers[index]}
+                  value={answers[index] ?? ''}
                   onChange={(e) => onAnswerChange(index, e.target.value)}
                   required
                 />

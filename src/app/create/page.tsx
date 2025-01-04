@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ApplyLayout from '@/components/QAPresetApply';
-import { QuestionPreset } from '@/types';
+import { UserQuestionAnswer, Question, QuestionPreset } from '@/types';
 
 const QAPresetApply: React.FC = () => {
   // TODO 剥がして下のコンポーネントに移動する？
   const [text, setText] = useState<string>('');
   const [selectedPreset, setSelectedPreset] = useState('');
-  const [qaList, setQaList] = useState<string[]>([]);
+  const [questionList, setQuestionList] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
   const [storedPresets, setStoredPresets] = useState<QuestionPreset[]>([]);
   const router = useRouter();
@@ -33,7 +33,7 @@ const QAPresetApply: React.FC = () => {
     );
     if (selected) {
       setSelectedPreset(selected.title);
-      setQaList(selected.questionList);
+      setQuestionList(selected.questionList);
       setAnswers(new Array(selected.questionList.length));
     }
   };
@@ -44,14 +44,23 @@ const QAPresetApply: React.FC = () => {
     setAnswers(updatedAnswers);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ text, selectedPreset, qaList, answers });
-    localStorage.setItem(
-      'qaResults',
-      JSON.stringify({ text, selectedPreset, qaList, answers })
-    );
-    router.push('/delete');
+    const qaList = questionList.map((q, i) => {
+      return {
+        questionId: q.id,
+        answer: answers[i],
+      }
+    })
+    const res = await fetch('/api/results', {
+      method: "POST",
+      body: JSON.stringify({ text, qaList })
+    })
+    if(res.ok){
+      console.log('success create')
+    }else{
+      alert('Failed ceate.')
+    }
   };
 
   return (
@@ -62,7 +71,7 @@ const QAPresetApply: React.FC = () => {
         text={text}
         onTextChange={setText}
         selectedPreset={selectedPreset}
-        qaList={qaList}
+        questionList={questionList}
         answers={answers}
         storedPresets={storedPresets}
         onPresetChange={handlePresetChange}
