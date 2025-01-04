@@ -20,7 +20,7 @@ const QAPresetResultPage: React.FC = () => {
   };
   useEffect(() => {
     fetchResultList();
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetchResultList();

@@ -50,19 +50,19 @@ const QAPresetApply: React.FC = () => {
       return {
         questionId: q.id,
         answer: answers[i],
-      }
-    })
+      };
+    });
     const res = await fetch('/api/results', {
-      method: "POST",
-      body: JSON.stringify({ text, qaList })
-    })
-    if(res.ok){
-      alert('Success create.')
+      method: 'POST',
+      body: JSON.stringify({ text, qaList }),
+    });
+    if (res.ok) {
+      alert('Success create.');
       setSelectedPreset('');
       setQuestionList([]);
       setAnswers([]);
-    }else{
-      alert('Failed create.')
+    } else {
+      alert('Failed create.');
     }
   };
 

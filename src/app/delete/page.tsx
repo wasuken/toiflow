@@ -17,7 +17,7 @@ const QAPresetDeletePage: React.FC = () => {
   };
   useEffect(() => {
     fetchQuestionList();
-  }, [])
+  }, []);
 
   const handleDelete = (index: number) => {
     const updatedPresets = [...presets];
