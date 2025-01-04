@@ -57,9 +57,12 @@ const QAPresetApply: React.FC = () => {
       body: JSON.stringify({ text, qaList })
     })
     if(res.ok){
-      console.log('success create')
+      alert('Success create.')
+      setSelectedPreset('');
+      setQuestionList([]);
+      setAnswers([]);
     }else{
-      alert('Failed ceate.')
+      alert('Failed create.')
     }
   };
 
