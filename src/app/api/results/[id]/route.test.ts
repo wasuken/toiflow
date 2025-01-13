@@ -11,9 +11,13 @@ describe('DELETE API Route', () => {
     await prisma.question.deleteMany({});
     await prisma.questionList.deleteMany({});
     await prisma.user.deleteMany({});
+    await prisma.userQuestionAnswer.deleteMany({});
+    await prisma.userQuestionList.deleteMany({});
     await prisma.$executeRaw`ALTER TABLE QuestionList AUTO_INCREMENT = 1;`;
     await prisma.$executeRaw`ALTER TABLE Question AUTO_INCREMENT = 1;`;
     await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
+    await prisma.$executeRaw`ALTER TABLE UserQuestionAnswer AUTO_INCREMENT = 1;`;
+    await prisma.$executeRaw`ALTER TABLE UserQuestionList AUTO_INCREMENT = 1;`;
     await prisma.user.create({
       data: {
         displayName: 'test user',
@@ -42,34 +46,29 @@ describe('DELETE API Route', () => {
 
   it('正常に削除できること', async () => {
     // テストデータを挿入
-    const testData = [
-      {
-        id: 1,
-        answer: 'Test Answer',
-        questionId: 1,
-        userId: 1,
-      },
-      {
-        id: 2,
-        answer: 'Test Answer2',
-        questionId: 1,
-        userId: 1,
-      },
-    ];
-    const rec = testData.map((qa) => {
-      return {
-        questionId: qa.questionId,
-        // 認証方法によって変更
-        userId: qa.userId,
-        answer: qa.answer,
-      };
-    });
-    const userQuestionAnswers = [];
-    for (const row of testData) {
-      const result = await prisma.userQuestionAnswer.create({
-        data: row,
+    const testData = {
+      memo: 'test memo',
+      userId: 1,
+    }
+    const testDataAL = [
+        {
+          id: 1,
+          answer: 'Test Answer',
+          questionId: 1,
+        },
+        {
+          id: 2,
+          answer: 'Test Answer2',
+          questionId: 2,
+        },
+      ]
+    const alistRec = await prisma.userAnswerList.create({
+      data: testData,
+    })
+    for(const rec of testDataAL){
+      await prisma.userQuestionAnswer.create({
+        data: rec,
       });
-      userQuestionAnswers.push(result);
     }
 
     const req = new Request('http://localhost:3000/api/results/1', {

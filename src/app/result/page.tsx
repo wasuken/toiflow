@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import QAPresetResult from '@/components/QAPresetResult';
+import UserAnswerList from '@/components/UserAnswerList';
 
 const QAPresetResultPage: React.FC = () => {
   const [presetName, setPresetName] = useState('');
@@ -52,18 +52,11 @@ const QAPresetResultPage: React.FC = () => {
 
   return (
     <div className='container mt-5'>
-      <h1>QAリスト適用</h1>
-
-      <QAPresetResult
-        presetName={presetName}
-        text={text}
+      <h1>回答一覧</h1>
+      <UserAnswerList
         qaList={qaList}
-        answers={answers}
-        onAnswerChange={handleAnswerChange}
-        onTextChange={handleTextChange}
-        onSave={handleSave}
-        onBack={handleBack}
       />
+
     </div>
   );
 };

@@ -48,7 +48,7 @@ const QAPresetCreatePage: React.FC = () => {
   };
   return (
     <div className='container mt-5'>
-      <h1>QuestionList作成</h1>
+      <h1>質問集作成</h1>
       <QAPresetForm
         handleAddQuestion={handleAddQuestion}
         handleRemoveQuestion={handleRemoveQuestion}

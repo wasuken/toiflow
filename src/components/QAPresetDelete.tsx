@@ -19,7 +19,7 @@ const QAPresetDelete: React.FC = ({ presets }) => {
           ))}
         </ListGroup>
       ) : (
-        <p>現在、保存されているプリセットはありません。</p>
+        <p>現在、保存されている質問集はありません。</p>
       )}
     </div>
   );

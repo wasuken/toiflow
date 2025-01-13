@@ -68,7 +68,7 @@ const QAPresetApply: React.FC = () => {
 
   return (
     <div className='container mt-5'>
-      <h1>QAリスト適用</h1>
+      <h1>回答作成</h1>
 
       <ApplyLayout
         text={text}

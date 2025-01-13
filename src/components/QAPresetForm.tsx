@@ -13,17 +13,17 @@ const QAPresetForm: React.FC = ({
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className='mb-3' controlId='presetName'>
-        <Form.Label>プリセット名</Form.Label>
+        <Form.Label>タイトル</Form.Label>
         <Form.Control
           type='text'
-          placeholder='プリセット名を入力してください'
+          placeholder='タイトルを入力してください'
           value={presetName}
           onChange={(e) => handleChangePresetName(e.target.value)}
           required
         />
       </Form.Group>
 
-      <Form.Label>質問リスト</Form.Label>
+      <Form.Label>質問集</Form.Label>
       {questions.map((question, index) => (
         <Row key={index} className='mb-3'>
           <Col xs={9}>

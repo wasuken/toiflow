@@ -6,20 +6,36 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   // 本来なら認証情報からユーザーIDを引き出してWhereに入れる
-  const data = await prisma.userQuestionAnswer.findMany({});
-  return NextResponse.json({ data });
+  const data = await prisma.userAnswerList.findMany({
+    include: {
+      answerList: {
+        include: {
+          question: true,
+        }
+      },
+    }
+  });
+  return NextResponse.json({ 
+    data ,
+  });
 }
 
 // 質問リストと対応する回答の配列がRequestBodyに乗せられる
 export async function POST(req: NextRequest) {
   const params = await req.json();
-  console.log('debug', params);
+  const userAnswerList = await prisma.userAnswerList.create({
+    data: {
+      memo: params.text ?? '',
+      userId: params.userId ?? 1,
+    }
+  })
   const data = params.qaList.map((qa) => {
     return {
       id: qa.id,
       questionId: qa.questionId,
       // 認証方法によって変更
       userId: params.userId ?? 1,
+      answerListId: userAnswerList.id,
       answer: qa.answer,
     };
   });

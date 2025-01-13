@@ -40,14 +40,14 @@ const QAPresetApply: React.FC<QAPresetApplyProps> = ({
         />
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>プリセットを選択</Form.Label>
+        <Form.Label>質問集を選択</Form.Label>
         <Form.Select
           value={selectedPreset}
           onChange={(e) => onPresetChange(e.target.value)}
           required
         >
           <option value='' disabled>
-            プリセットを選択してください
+            質問集を選択してください
           </option>
           {storedPresets.map((preset: QuestionPreset, index: number) => (
             <option key={index} value={preset.title}>

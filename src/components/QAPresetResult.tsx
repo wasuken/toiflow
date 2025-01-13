@@ -43,7 +43,7 @@ ${qrst}
 
   return (
     <div className='mt-3'>
-      <h3>プリセット名: {presetName}</h3>
+      <h3>質問襲名: {presetName}</h3>
       <h3>入力されたテキスト</h3>
       {/* textarea を再表示して編集可能に */}
       <Form.Control

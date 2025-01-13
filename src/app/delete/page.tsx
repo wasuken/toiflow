@@ -25,11 +25,11 @@ const QAPresetDeletePage: React.FC = () => {
     updatedPresets.splice(index, 1);
     localStorage.setItem('qaPresets', JSON.stringify(updatedPresets));
     setPresets(updatedPresets);
-    alert(`プリセット「${presetName}」が削除されました！`);
+    alert(`質問集「${presetName}」が削除されました！`);
   };
   return (
     <div className='container mt-5'>
-      <h1>QAプリセット削除</h1>
+      <h1>質問集削除</h1>
       <QAPresetDelete
         presets={presets.map((x, i) => {
           return { ...x, delete: () => handleDelete(i) };
