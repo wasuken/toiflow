@@ -15,17 +15,27 @@ const QAPresetDeletePage: React.FC = () => {
       alert('Error: fetch question list');
     }
   };
+  const deleteQuestionList = async (id: number) => {
+    const res = await fetch(`/api/presets/${id}`, {
+      method: 'DELETE'
+    });
+    if (res.ok) {
+      const resj = await res.json();
+    } else {
+      alert('Error: fetch question list');
+    }
+  }
   useEffect(() => {
     fetchQuestionList();
   }, []);
 
   const handleDelete = (index: number) => {
     const updatedPresets = [...presets];
-    const presetName = updatedPresets[index].name;
+    const preset = updatedPresets[index];
     updatedPresets.splice(index, 1);
-    localStorage.setItem('qaPresets', JSON.stringify(updatedPresets));
     setPresets(updatedPresets);
-    alert(`質問集「${presetName}」が削除されました！`);
+    deleteQuestionList(preset.id);
+    alert(`質問集「${preset.title}」が削除されました！`);
   };
   return (
     <div className='container mt-5'>

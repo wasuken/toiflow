@@ -32,6 +32,12 @@ const QAPresetForm: React.FC = ({
               placeholder={`質問 ${index + 1}`}
               value={question}
               onChange={(e) => handleChangeQuestion(index, e.target.value)}
+              onKeyDown={(e) => {
+                if(e.key === 'Enter') {
+                  e.preventDefault();
+                  handleAddQuestion();
+                }
+              }}
               required
             />
           </Col>

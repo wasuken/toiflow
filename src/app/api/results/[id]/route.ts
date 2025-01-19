@@ -14,7 +14,7 @@ interface DeleteInfo {
  * プリセットを登録する
  * */
 export async function DELETE(req: Request, { params }: DeleteInfo) {
-  const { id } = params;
+  const { id } = await params;
   const data = await prisma.userQuestionAnswer.delete({
     where: {
       id,
@@ -24,7 +24,7 @@ export async function DELETE(req: Request, { params }: DeleteInfo) {
   return Response.json({ data });
 }
 export async function GET(req: Request, { params }: DeleteInfo) {
-  const { id } = params;
+  const { id } = await params;
   const data = await prisma.userQuestionAnswer.findFirst({
     where: {
       id,
