@@ -12,12 +12,12 @@ describe('DELETE API Route', () => {
     await prisma.questionList.deleteMany({});
     await prisma.user.deleteMany({});
     await prisma.userQuestionAnswer.deleteMany({});
-    await prisma.userQuestionList.deleteMany({});
+    await prisma.userAnswerList.deleteMany({});
     await prisma.$executeRaw`ALTER TABLE QuestionList AUTO_INCREMENT = 1;`;
     await prisma.$executeRaw`ALTER TABLE Question AUTO_INCREMENT = 1;`;
     await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
     await prisma.$executeRaw`ALTER TABLE UserQuestionAnswer AUTO_INCREMENT = 1;`;
-    await prisma.$executeRaw`ALTER TABLE UserQuestionList AUTO_INCREMENT = 1;`;
+    await prisma.$executeRaw`ALTER TABLE UserAnswerList AUTO_INCREMENT = 1;`;
     await prisma.user.create({
       data: {
         displayName: 'test user',
@@ -32,6 +32,12 @@ describe('DELETE API Route', () => {
             title: 'test question list',
           },
         },
+      },
+    });
+    await prisma.question.create({
+      data: {
+        name: 'test q2',
+        questionListId: 1,
       },
     });
   });
@@ -50,21 +56,23 @@ describe('DELETE API Route', () => {
       memo: 'test memo',
       userId: 1,
     }
+    const alistRec = await prisma.userAnswerList.create({
+      data: testData,
+    })
     const testDataAL = [
         {
           id: 1,
           answer: 'Test Answer',
           questionId: 1,
+          answerListId: alistRec.id,
         },
         {
           id: 2,
           answer: 'Test Answer2',
           questionId: 2,
+          answerListId: alistRec.id,
         },
       ]
-    const alistRec = await prisma.userAnswerList.create({
-      data: testData,
-    })
     for(const rec of testDataAL){
       await prisma.userQuestionAnswer.create({
         data: rec,

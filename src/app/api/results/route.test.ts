@@ -42,6 +42,12 @@ describe('Result API Integration', () => {
   });
 
   it('UserQuestionAnswersを取得する', async () => {
+    const alistRec = await prisma.userAnswerList.create({
+      data: {
+        memo: 'test memo',
+        userId: 1,
+      }
+    })
     // userQuestionAnswersテストデータの作成
     const testData = [
       {
@@ -49,12 +55,14 @@ describe('Result API Integration', () => {
         answer: 'Test Answer',
         questionId: 1,
         userId: 1,
+        answerListId: alistRec.id,
       },
       {
         id: 2,
         answer: 'Test Answer2',
         questionId: 1,
         userId: 1,
+        answerListId: alistRec.id,
       },
     ];
     const rec = testData.map((qa) => {
