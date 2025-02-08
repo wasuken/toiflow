@@ -58,7 +58,7 @@ const UserAnswerList: React.FC<UserAnswerListProps> = ({
               <ListGroup>
                 {answerList.answerList.map((qa) => (
                   <ListGroup.Item key={qa.id}>
-                    <div className="fw-bold">{qa.question.title}</div>
+                    <div className="fw-bold">{qa.question.name}</div>
                     <div className="text-break">{qa.answer}</div>
                   </ListGroup.Item>
                 ))}
