@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Accordion, ListGroup, Card, Button, Form } from 'react-bootstrap';
 
@@ -26,11 +27,11 @@ interface UserAnswerListProps {
 const AnswerAccourdionList = (uqa: UserQuestionAnswer) => {
   const { answerList } = uqa;
   return (
-    <Accordion defaultActiveKey="0" key={answerList.id}>
+    <Accordion defaultActiveKey="1" key={answerList.id}>
       <Accordion.Item eventKey="0">
         <Accordion.Header>
           <div>
-            <h5 className="mb-0">回答 #{answerList.id}</h5>
+            <h5 className="mb-0">回答 {answerList.memo}(#{answerList.id})</h5>
             <small className="text-muted">
               作成日: {new Date(answerList.createdAt).toLocaleDateString()}
             </small>

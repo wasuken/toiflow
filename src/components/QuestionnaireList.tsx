@@ -1,8 +1,9 @@
+"use client";
 import React, { useCallback } from 'react';
 import { ListGroup, Form, Button } from 'react-bootstrap';
 import CopyButton from './CopyButton';
 
-interface QAPresetResultProps {
+interface QuestionnaireListProps {
   presetName: string;
   text: string;
   qaList: string[];
@@ -13,7 +14,7 @@ interface QAPresetResultProps {
   onBack: () => void;
 }
 
-const QAPresetResult: React.FC<QAPresetResultProps> = ({
+const QuestionnaireList: React.FC<QuestionnaireListProps> = ({
   presetName,
   qaList,
   text,
@@ -43,7 +44,7 @@ ${qrst}
 
   return (
     <div className='mt-3'>
-      <h3>質問襲名: {presetName}</h3>
+      <h3>質問集名: {presetName}</h3>
       <h3>入力されたテキスト</h3>
       {/* textarea を再表示して編集可能に */}
       <Form.Control
@@ -78,4 +79,4 @@ ${qrst}
   );
 };
 
-export default QAPresetResult;
+export default QuestionnaireList;

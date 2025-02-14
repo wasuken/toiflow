@@ -1,15 +1,51 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 
-const QAPresetForm: React.FC = ({
-  handleAddQuestion,
-  handleRemoveQuestion,
-  handleChangeQuestion,
-  handleSubmit,
-  handleChangePresetName,
-  presetName,
-  questions,
+const CreateQuestionnaire: React.FC = ({
 }) => {
+  const [presetName, setPresetName] = useState('');
+  const [questions, setQuestions] = useState<string[]>(['']);
+
+  const handleAddQuestion = () => {
+    setQuestions([...questions, '']);
+  };
+
+  const handleRemoveQuestion = (index: number) => {
+    setQuestions(questions.filter((_, i) => i !== index));
+  };
+
+  const handleChangePresetName = (pname: string) => {
+    setPresetName(pname);
+  };
+
+  const handleChangeQuestion = (index: number, value: string) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index] = value;
+    setQuestions(updatedQuestions);
+  };
+  const postQuestionList = async () => {
+    const res = await fetch(`/api/presets`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({ questions, title: presetName }),
+    });
+    if (res.ok) {
+      alert('QuestionListが保存されました！');
+      setPresetName('');
+      setQuestions(['']);
+    } else {
+      alert('[/api/preset] POST Error.');
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    postQuestionList();
+  };
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className='mb-3' controlId='presetName'>
@@ -66,4 +102,4 @@ const QAPresetForm: React.FC = ({
   );
 };
 
-export default QAPresetForm;
+export default CreateQuestionnaire;
