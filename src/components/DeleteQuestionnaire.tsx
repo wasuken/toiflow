@@ -1,8 +1,10 @@
 "use client";
 import React from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
+import { useRouter } from 'next/navigation'
 
 const DeleteAnswer: React.FC = ({ presets }) => {
+  const router = useRouter();
   const fpresets = presets.map((x, i) => {
     return { ...x, delete: () => handleDelete(i) };
   });
@@ -13,17 +15,17 @@ const DeleteAnswer: React.FC = ({ presets }) => {
     if (res.ok) {
       const resj = await res.json();
     } else {
-      alert('Error: fetch question list');
+      alert('Error: delete presetes');
     }
   }
 
-  const handleDelete = (index: number) => {
+  const handleDelete = async (index: number) => {
     const updatedPresets = [...presets];
     const preset = updatedPresets[index];
-    updatedPresets.splice(index, 1);
-    setPresets(updatedPresets);
-    deleteQuestionList(preset.id);
+    console.log('debug', preset)
+    const res = await deleteQuestionList(preset.id);
     alert(`質問集「${preset.title}」が削除されました！`);
+    router.refresh();
   };
   return (
     <div>

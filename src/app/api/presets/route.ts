@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache'
 
 const prisma = new PrismaClient();
 
@@ -38,6 +39,7 @@ export async function POST(req: NextRequest) {
     });
     qlist.push(qdata);
   }
+  revalidateTag('preset');
 
   return NextResponse.json({ data: qlist }, { status: 200 });
 }

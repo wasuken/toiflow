@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { revalidateTag } from 'next/cache'
 
 const prisma = new PrismaClient();
 
@@ -12,7 +13,7 @@ interface DeleteInfo {
 
 export async function DELETE(req: Request, { params }: DeleteInfo) {
   try {
-    const id = Number(await params.id);
+    const id = Number(params.id);
     
     const data = await prisma.questionList.delete({
       where: {
@@ -26,6 +27,7 @@ export async function DELETE(req: Request, { params }: DeleteInfo) {
         { status: 404 }
       );
     }
+    revalidateTag('preset');
 
     return Response.json({ data });
     
@@ -38,7 +40,7 @@ export async function DELETE(req: Request, { params }: DeleteInfo) {
 }
 
 export async function GET(req: Request, { params }: DeleteInfo) {
-  const { id } = await params;
+  const id = Number(params.id);
   const data = await prisma.questionList.findFirst({
     where: {
       id,

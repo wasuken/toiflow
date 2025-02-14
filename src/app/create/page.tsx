@@ -4,7 +4,6 @@ import { UserQuestionAnswer, Question, QuestionPreset } from '@/types';
 import { listQuestionnaire } from '@/lib/api';
 
 const QAPresetApply: React.FC = async () => {
-  // TODO 剥がして下のコンポーネントに移動する？
   const storedPresets = await listQuestionnaire();
 
   return (

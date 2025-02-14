@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { revalidateTag } from 'next/cache'
 
 const prisma = new PrismaClient();
 
@@ -20,6 +21,7 @@ export async function DELETE(req: Request, { params }: DeleteInfo) {
       id,
     },
   });
+  revalidateTag('result');
 
   return Response.json({ data });
 }

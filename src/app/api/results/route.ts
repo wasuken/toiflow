@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { revalidateTag } from 'next/cache'
 
 const prisma = new PrismaClient();
 
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
     });
     userQuestionAnswers.push(result);
   }
+  revalidateTag('result');
 
   return NextResponse.json({ data: userQuestionAnswers });
 }

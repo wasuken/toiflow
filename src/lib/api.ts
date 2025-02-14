@@ -1,7 +1,8 @@
 export async function listQuestionnaire() {
   const res = await fetch(`http://localhost:3000/api/presets`, {
     next: { 
-      revalidate: 3600 
+      revalidate: 3600,
+      tags: ['preset'],
     }
   });
   if (!res.ok) {
@@ -12,7 +13,8 @@ export async function listQuestionnaire() {
 export async function listQuestionnaireAndAnswers() {
   const res = await fetch(`http://localhost:3000/api/results`, {
     next: { 
-      revalidate: 3600 
+      revalidate: 3600,
+      tags: ['result'],
     }
 
   });

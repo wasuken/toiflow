@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Form, Button, ListGroup } from 'react-bootstrap';
+import { useRouter } from 'next/navigation'
 
 import { Question, QuestionPreset } from '@/types';
 
@@ -15,6 +16,7 @@ const CreateAnswer: React.FC<CreateAnswerProps> = ({
   const [selectedPreset, setSelectedPreset] = useState('');
   const [questionList, setQuestionList] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const router = useRouter();
 
   const handlePresetChange = (presetName: string) => {
     const selected = storedPresets.find(
@@ -45,11 +47,12 @@ const CreateAnswer: React.FC<CreateAnswerProps> = ({
       body: JSON.stringify({ text, qaList }),
     });
     if (res.ok) {
-      alert('Success create.');
       setSelectedPreset('');
       setQuestionList([]);
       setAnswers([]);
       setText();
+      alert('Success create.');
+      router.refresh();
     } else {
       alert('Failed create.');
     }
